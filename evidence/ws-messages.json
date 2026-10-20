@@ -1,0 +1,98 @@
+[
+  {
+    "dir": "send",
+    "ts": 1792414900341,
+    "data": "CgAQ7KJQGJADIig1MTQyYzMxN2RjY2M2MWRlODViZWM2NjYxYzVmZTNjOGJmZTFjZjEwMPpO",
+    "len": 72
+  },
+  {
+    "dir": "recv",
+    "ts": 1792414900826,
+    "data": "{\"error\":0}",
+    "len": 11
+  },
+  {
+    "dir": "send",
+    "ts": 1792414907829,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:1:47\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414914827,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:1:54\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414921830,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:1\"}}",
+    "len": 64
+  },
+  {
+    "dir": "send",
+    "ts": 1792414928827,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:8\"}}",
+    "len": 64
+  },
+  {
+    "dir": "send",
+    "ts": 1792414935827,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:15\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414942826,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:22\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414949827,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:29\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414956826,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:36\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414963828,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:43\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414970827,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:50\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414977826,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:2:57\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414984826,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:3:4\"}}",
+    "len": 64
+  },
+  {
+    "dir": "send",
+    "ts": 1792414991826,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:3:11\"}}",
+    "len": 65
+  },
+  {
+    "dir": "send",
+    "ts": 1792414998827,
+    "data": "{\"cmdType\":-1,\"content\":{\"currentDatetime\":\"2026/10/19 13:3:18\"}}",
+    "len": 65
+  }
+]

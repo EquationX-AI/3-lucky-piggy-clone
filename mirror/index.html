@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Google tag (gtag.js) -->
+  <noscript>
+    <div style="color: red; font-weight: bold; text-align: center; padding: 20px;">
+      Your browser has disabled JavaScript. Please enable it to use this website properly.
+    </div>
+  </noscript>
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MTXM3DWCZJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-MTXM3DWCZJ');
+  </script>
+  <meta charset="utf-8">
+  <title>
+    3 LUCKY PIGGY
+  </title>
+
+  <!--http://www.html5rocks.com/en/mobile/mobifying/-->
+  <meta name="viewport"
+    content="width=device-width,user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1,minimal-ui=true" />
+
+  <!--https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+
+  <!-- force webkit on 360 -->
+  <meta name="renderer" content="webkit" />
+  <meta name="force-rendering" content="webkit" />
+  <!-- force edge on IE -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- force full screen on some browser -->
+  <meta name="full-screen" content="yes" />
+  <meta name="x5-fullscreen" content="true" />
+  <meta name="360-fullscreen" content="true" />
+
+  <!--fix fireball/issues/3568 -->
+  <!--<meta name="browsermode" content="application">-->
+  <meta name="x5-page-mode" content="app">
+
+  <!--<link rel="apple-touch-icon" href=".png" />-->
+  <!--<link rel="apple-touch-icon-precomposed" href=".png" />-->
+
+  <!-- <link rel="stylesheet" type="text/css" href="style.20230117.css" /> -->
+  <!-- <link rel="stylesheet" href='https://mmwebfonts.comquas.com/fonts/?font=zawgyi' />
+  <style type="text/css">
+    .zawgyi {
+      font-family: Zawgyi-One;
+    }
+  </style> -->
+  <style type="text/css">
+    html {
+      -ms-touch-action: none;
+    }
+
+    body,
+    canvas,
+    div {
+      display: block;
+      outline: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      -khtml-user-select: none;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    /* Remove spin of input type number */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      /* display: none; <- Crashes Chrome on hover */
+      -webkit-appearance: none;
+      margin: 0;
+      /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    body {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      margin: 0;
+
+      cursor: default;
+      color: #888;
+      background-color: black;
+
+      text-align: center;
+      font-family: Helvetica, Verdana, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    #Cocos3dGameContainer {
+      position: absolute;
+      margin: 0;
+      overflow: hidden;
+      left: 0px;
+      top: 0px;
+
+      display: -webkit-box;
+      -webkit-box-orient: horizontal;
+      -webkit-box-align: center;
+      -webkit-box-pack: center;
+    }
+
+    canvas {
+      width: 0%;
+      height: 0%;
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    a:link,
+    a:visited {
+      color: #666;
+    }
+
+    a:active,
+    a:hover {
+      color: #666;
+    }
+
+    p.header {
+      font-size: small;
+    }
+
+    p.footer {
+      font-size: x-small;
+    }
+
+    #splash {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0%;
+      width: 100%;
+      height: 100%;
+    }
+
+    .progress-bar {
+      background-color: #1a1a1a;
+      bottom: 20%;
+      height: 10px;
+      padding: 5px;
+      width: 48%;
+      margin-top: -1%;
+      border-radius: 5px;
+      box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+    }
+
+    .progress-bar span {
+      display: block;
+      height: 100%;
+      border-radius: 3px;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+      /* transition: width .4s ease-in-out; */
+      background-color: #34c2e3;
+    }
+
+    .progress-bar-label {
+      bottom: 5%;
+      text-align: center;
+      color: #ffffff;
+      font-size: 20px;
+    }
+
+    .stripes span {
+      background-size: 30px 30px;
+      background-image: linear-gradient(135deg, rgba(255, 255, 255, .15) 25%, transparent 25%,
+          transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%,
+          transparent 75%, transparent);
+
+      animation: animate-stripes 1s linear infinite;
+    }
+
+    /* CSS區塊重新排列 */
+    #splash {
+      width: 100%;
+      height: 100%;
+      /* background-image: url(gameViewbg_J03.png), url(gameViewbg_J02.png); */
+      background-size: auto, 100% 100%;
+      background-color: #1919191a, rgba(25, 25, 25, 0.1);
+      background-repeat: repeat, no-repeat;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+    }
+
+    div#Jili {
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+    }
+
+    div#JiliNew {
+      width: 100%;
+      height: 100vh;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+    }
+
+    div#TaDa {
+      width: 100%;
+      height: 100vh;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+    }
+
+    div#ElementBlock {
+      width: 100%;
+      /* height: 100%; */
+      /* background-color: #34c2e3; */
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    div#JiliNewElementBlock {
+      /* width: 100%; */
+      /* height: 100%; */
+      /* background-color: #34c2e3; */
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    div#TaDaElementBlock {
+      /* width: 100%; */
+      /* height: 100%; */
+      /* background-color: #34c2e3; */
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    #Logo {
+      width: 100%;
+      margin-bottom: -1%;
+    }
+
+    #logo {
+      width: 100%;
+      height: auto;
+      visibility: hidden;
+    }
+
+    #logo img {
+      width: 80%;
+      max-width: 280px;
+    }
+
+    #leftBlock,
+    #rightBlock,
+    #missionBlock,
+    #signUpBlock,
+    #same {
+      width: 45%;
+      display: none;
+    }
+
+    #LoadingTextBlock {
+      width: 100%;
+    }
+
+    #leftBlock img,
+    #rightBlock img,
+    #missionBlock img,
+    #signUpBlock img {
+      width: 100%;
+      max-width: 65%;
+    }
+
+
+    .script {
+      font-size: 16px;
+      color: white;
+      /* position: relative; */
+    }
+
+    #system_message {
+      position: absolute;
+      top: 10%;
+      text-align: center;
+      background-color: rgba(25, 25, 25, 0.9);
+      color: #ffffff;
+      font-size: 32px;
+      z-index: 999;
+    }
+
+    #bottomBlock {
+      position: absolute;
+      background-color: black;
+      width: 100%;
+      height: 100%;
+      /* visibility: hidden; */
+    }
+
+    #loadingBlock {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 570px;
+      z-index: 10;
+      visibility: hidden;
+      background-color: #e6e6e6;
+    }
+
+    #loadingMask {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      margin-left: -27px;
+      margin-top: -27px;
+      left: 50%;
+      top: 50%;
+      display: block;
+      /* visibility: hidden; */
+    }
+
+    #MsgBox_JILI {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url(JILI_msgBox/img_betlist_off.png);
+    }
+
+    div#MsgCenter_JILI {
+      position: absolute;
+      width: 638px;
+      height: 388px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    div#MsgBoard_JILI {
+      width: 638px;
+      height: 388px;
+      background: url(JILI_msgBox/mainframe.png);
+      transform-origin: 0% 0%;
+    }
+
+    div#MsgTitle_JILI {
+      font-size: 30px;
+      color: white;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 15px;
+    }
+
+    div#MsgContent_JILI {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 230px;
+      top: 60px;
+      font-size: 30px;
+      color: white;
+    }
+
+    #MsgContent_JILI div#MsgText_JILI {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      width: 100%;
+      height: 105px;
+    }
+
+    div#MsgError_JILI {
+      position: absolute;
+      font-size: 20px;
+      color: #808080;
+      bottom: 4px;
+      right: 10px;
+    }
+
+    div#OkBtn_JILI {
+      width: 158px;
+      height: 65px;
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      top: 298px;
+      background-image: url(JILI_msgBox/btn.png);
+    }
+
+    div#OkBtn_JILI p {
+      font-size: 30px;
+      color: white;
+      position: absolute;
+      top: 14px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    #MsgBox_Tada {
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: url(Tada_msgBox/img_betlist_off.png);
+    }
+
+    div#MsgCenter_Tada {
+      position: absolute;
+      width: 638px;
+      height: 383px;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    div#MsgBoard_Tada {
+      width: 638px;
+      height: 383px;
+      background: url(Tada_msgBox/mainframe.png);
+      transform-origin: 0% 0%;
+    }
+
+    div#MsgTitle_Tada {
+      font-size: 34px;
+      font-weight: bold;
+      color: #ffb42d;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 24px;
+    }
+
+    div#MsgContent_Tada {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 196px;
+      top: 81px;
+      font-size: 24px;
+      color: white;
+    }
+
+    #MsgContent_Tada div#MsgText_Tada {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+      width: 100%;
+      height: 105px;
+    }
+
+    div#MsgError_Tada {
+      position: absolute;
+      font-size: 20px;
+      color: #808080;
+      bottom: 4px;
+      right: 29px;
+    }
+
+    div#OkBtn_Tada {
+      width: 212px;
+      height: 70px;
+      display: block;
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: auto;
+      top: 285px;
+      background-image: url(Tada_msgBox/btn_confirm.png);
+    }
+
+    div#OkBtn_Tada p {
+      font-size: 24px;
+      color: white;
+      position: absolute;
+      top: 14px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    img#JiliNew_gif {
+      height: 83%;
+    }
+
+    div#progressBar_JiliNew {
+      background-image: url(Intro_ProgressBar_Bottom.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      /* width: 43%;
+      height: 5px; */
+      width: 100%;
+      height: 8%;
+      /* margin: auto; */
+      margin-top: 5%;
+      border-radius: 10px;
+    }
+
+    div#progressBar_JiliNew_IN {
+      background-image: url(Intro_ProgressBar.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      width: 5%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    img#TaDa_gif {
+      height: 83%;
+    }
+
+    div#progressBar_TaDa {
+      background-image: url(Intro_ProgressBar_Bottom.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      /* width: 43%;
+      height: 5px; */
+      width: 100%;
+      height: 8%;
+      /* margin: auto; */
+      margin-top: 5%;
+      border-radius: 10px;
+    }
+
+    div#progressBar_TaDa_IN {
+      background-image: url(Intro_ProgressBar.png);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: 100% 100%;
+      width: 5%;
+      height: 100%;
+      border-radius: 10px;
+    }
+
+    /*================= 尺寸控制 =================*/
+    /* @media only screen and (max-width: 823px) {
+      #logo img {
+        width: 30%
+      }
+
+      #leftBlock img,
+      #rightBlock img,
+      #missionBlock img,
+      #signUpBlock img {
+        width: 70%;
+      }
+    }
+
+    @media only screen and (max-width: 736px) {
+
+      #leftBlock img,
+      #rightBlock img,
+      #missionBlock img,
+      #signUpBlock img {
+        width: 90%;
+      }
+    }
+
+    @media only screen and (max-width: 414px) {
+      #logo img {
+        width: 50%
+      }
+
+      #leftBlock,
+      #rightBlock,
+      #missionBlock,
+      #signUpBlock,
+      #same {
+        width: 100%;
+      }
+
+      #leftBlock img,
+      #rightBlock img,
+      #missionBlock img,
+      #signUpBlock img {
+        width: 80%;
+      }
+    } */
+
+    @media screen and (orientation : portrait) {
+
+      #JiliNewElementBlock,
+      #TaDaElementBlock {
+        height: 13.125vw;
+      }
+    }
+
+    @media screen and (orientation : landscape) {
+
+      #JiliNewElementBlock,
+      #TaDaElementBlock {
+        height: 13.125vh;
+      }
+    }
+
+    @keyframes animate-stripes {
+      0% {
+        background-position: 0 0;
+      }
+
+      100% {
+        background-position: 60px 0;
+      }
+    }
+
+    #GameDiv,
+    #Cocos3dGameContainer,
+    #GameCanvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+  <script>
+    function GetLinkParameterByName(name) {
+      var url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function CheckReplayUrlSkin(name) {
+      let zero = "0".charCodeAt( 0 );
+      let nine = "9".charCodeAt( 0 );
+      let char_a = "a".charCodeAt( 0 );
+      let char_z = "z".charCodeAt( 0 );
+      let char_A = "A".charCodeAt( 0 );
+      let char_Z = "Z".charCodeAt( 0 );
+
+      let decodedData = "";
+      for ( let i = 0; i < replayData.length; i++ )
+      {
+          let data = replayData.charCodeAt( i );
+          if ( data >= zero && data <= nine )
+          {
+              data = nine - ( data - zero );
+              decodedData = decodedData + String.fromCharCode( data );
+          }
+          else if ( data >= char_a && data <= char_z && i % 2 == 0 )
+          {
+              data = char_z - ( data - char_a );
+              decodedData = decodedData + String.fromCharCode( data );
+          }
+          else if ( data >= char_A && data <= char_Z && i % 3 == 0 )
+          {
+              data = char_Z - ( data - char_A );
+              decodedData = decodedData + String.fromCharCode( data );
+          }
+          else
+          {
+              decodedData = decodedData + String.fromCharCode( data );
+          }
+      }
+
+      let data = atob( decodedData );
+      name = name.replace( /[[\]]/g, "\\$&" );
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(data);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    function Log(eventId) {
+      var title = document.title;
+      var search = location.search.split(/(?:\?|&)/g);
+      for (var i = 0; i < search.length; i++) {
+        var gameId = search[i].split("gameID=")[1];
+        if (gameId) {
+          break;
+        }
+      }
+
+      let apiId = GetLinkParameterByName('apiId');
+      if ((apiId == "10210" || apiId == "6") && window.location.href.indexOf("\/fg\/") > 0) {
+        gameId = "109";
+      }
+      if (gameId === null || gameId === undefined) {
+        return;
+      }
+      let SSOKey = GetLinkParameterByName("ssoKey");
+      let gs = (GetLinkParameterByName("domain_platform") || GetLinkParameterByName("gs") || "gnidnawcs")
+        .split("").reverse().join("");
+      let url = "https://" + gs + "/webservice/event/trigger?";
+      url += "AccountID=-1&BrowserSystem=-1&DeviceSystem=-1&GameID=" + gameId + "&GameVersion=" + new Date().getTime() + "&EventID=" + eventId +
+        "&EventStatus=0&SSOKey=" + SSOKey + "&CreateTime=" + new Date().toISOString() + "&ApiId=" + apiId;
+      Send(url);
+    }
+
+    function Send(url, isPost, data) {
+      var headers = {
+        Accept: 'application/json, text/javascript, text/plain',
+      };
+      var xhr = new XMLHttpRequest();
+      var method = "GET";
+      if(isPost){
+        method = "post";
+      }
+      xhr.open(method, url, true);
+
+      if (headers) {
+        Object.keys(headers).forEach(key => xhr.setRequestHeader(key, headers[key]));
+      }
+
+      xhr.timeout = 5000;
+
+      xhr.onload = evt => { };
+
+      xhr.onerror = evt => {
+        // Send(url);
+      };
+
+      xhr.ontimeout = evt => {
+        // Send(url);
+      };
+      if(isPost){
+        xhr.setRequestHeader( 'Content-Type', 'application/json' );
+			  xhr.send( JSON.stringify( data ) );
+      }
+      else{
+        xhr.send();
+      }
+    }
+
+    function OnResize() {
+      var isLandscape = document.body.clientWidth > document.body.clientHeight;
+
+    }
+
+    window.addEventListener('load', () => {
+      OnResize();
+    });
+
+    Log(94);
+    window.StartTime = Date.now();
+    
+    // 設定網頁icon
+    let link = document.createElement('link');
+    link.rel = 'icon';
+    if (GetLinkParameterByName('skin') == 1) {
+        link.href = 'favicon1.ico';
+    } 
+    else {
+        link.href = 'favicon0.ico';
+    }
+    document.head.appendChild(link);
+
+    // 取網址列參數
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const urlParams_get = function (name) {
+      return urlParams.get(name) || '';
+    }
+
+    // 建立記錄時間的物件
+    const pageLoadTiming = {
+      logs: {},
+
+      // 記錄時間點
+      logTime(eventName) {
+        this.logs[eventName] = new Date();
+      },
+
+      // 計算時間差（毫秒）
+      calculateDuration(no, startEvent, endEvent) {
+        if (isFirst && urlParams_get('demo') != 'true') {
+          if (!this.logs[startEvent] || !this.logs[endEvent]) {
+            return 'no Record';
+          }
+          let search = location.search.split(/(?:\?|&)/g);
+          let gameId = '';
+          for (var i = 0; i < search.length; i++) {
+            gameId = search[i].split("gameID=")[1];
+            if (gameId) {
+              break;
+            }
+          }
+          let value = this.logs[endEvent] - this.logs[startEvent];
+
+          const report = 'https://' + urlParams_get('domain_platform').split('').reverse().join('') + '/webservice/event/loading';
+          const params = '?EventNo=' + no + '&EventValue=' + value + '&AccountID=-1&GameVersion=-1' + '&SSOKey=' + urlParams_get('ssoKey') + '&ApiID=' + urlParams_get('apiId') + '&GameID=' + gameId;
+          let xhr = new XMLHttpRequest();
+          xhr.open('get', report + params);
+          xhr.send();
+        }
+      }
+    };
+
+    window.pageLoadTiming = pageLoadTiming;
+
+    // 記錄 head 開始時間
+    pageLoadTiming.logTime('headStartTime');
+
+    let isFirst = true;
+    // 檢查 localStorage 是否可用
+    try {
+      const isSaved = localStorage.getItem('slotIndexFirstLog');
+      if (isSaved) {
+        isFirst = false;
+      } else {
+        localStorage.setItem('slotIndexFirstLog', '1');
+      }
+    } catch (e) {
+      isFirst = false;
+    }
+
+    window.onload = function () {
+      Log(95)
+      // HTML 頁面載入完成時間點 Log
+      pageLoadTiming.logTime('log955');
+      pageLoadTiming.calculateDuration(955, 'headStartTime', 'log955');
+    };
+
+    // 記錄初始載入時間
+    pageLoadTiming.logTime('log940');
+
+    // Client API script injection
+    if (urlParams_get("clientApiMode") == 1) {
+      // 1X2 Network
+      let s = document.createElement("script");
+      s.setAttribute("type", "text/javascript");
+      let jsUrl = "https://cdn.1x2networkhub.com/f1x2games/infrastr_generic-framework/clientAPI.game.min.js";
+      if (location.hostname.startsWith("uat")) {
+        jsUrl = "https://cdn-stage.1x2networkhub.com/f1x2games/infrastr_generic-framework/clientAPI.game.min.js";
+      }
+      s.setAttribute("src", jsUrl);
+      document.head.appendChild(s);
+    }
+    else if (urlParams_get("clientApiMode") == 3) {
+      // Relax
+      let s = document.createElement("script");
+      s.setAttribute("type", "text/javascript");
+      s.setAttribute("src", "https://cf-mt-cdn1.relaxg.com/casino/relaxlibs/feim/1.17.1/rlxfeim.min.js");
+      document.head.appendChild(s);
+    }
+  </script>
+
+</head>
+
+<body onresize="OnResize()">
+  <div id="GameDiv">
+    <div id="Cocos3dGameContainer">
+      <canvas id="GameCanvas" oncontextmenu="event.preventDefault()" tabindex="0"
+        style="width: 100%;height: 100%;"></canvas>
+    </div>
+  </div>
+
+  <div id="splash">
+    <!-- JiliNew頁面 -->
+    <div id="JiliNew" style="display: none;">
+      <div id="JiliNewElementBlock">
+        <!-- <div id="JiliNewLogo"> -->
+        <img id="JiliNew_gif" src="JILI_NEW.png">
+        <div id="progressBar_JiliNew" style="background-image: url(Intro_ProgressBar_Bottom_JILI.png);">
+          <div id="progressBar_JiliNew_IN" style="background-image: url(Intro_ProgressBar_JILI.png);"></div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- Tada頁面 -->
+    <div id="TaDa" style="display: none;">
+      <div id="TaDaElementBlock">
+        <!-- <div id="TaDaLogo"> -->
+        <img id="TaDa_gif" src="TaDa_Logo_APNG_s.png">
+        <div id="progressBar_TaDa" style="background-image: url(Intro_ProgressBar_Bottom.png);">
+          <div id="progressBar_TaDa_IN" style="background-image: url(Intro_ProgressBar.png);"></div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <!-- 訊息提示 JILI-->
+    <div id="MsgBox_JILI">
+      <div id="MsgCenter_JILI">
+        <div id="MsgBoard_JILI">
+          <div id="MsgTitle_JILI">
+            System
+          </div>
+          <div id="MsgContent_JILI">
+            <div id="MsgText_JILI">
+              111<br>111<br>111<br>
+            </div>
+            <div id="MsgError_JILI">
+              (ErrorCode 999)
+            </div>
+          </div>
+          <div id="OkBtn_JILI">
+            <p>Confirm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 訊息提示 Tada-->
+    <div id="MsgBox_Tada">
+      <div id="MsgCenter_Tada">
+        <div id="MsgBoard_Tada">
+          <div id="MsgTitle_Tada">
+            System
+          </div>
+          <div id="MsgContent_Tada">
+            <div id="MsgText_Tada">
+              111<br>111<br>111<br>
+            </div>
+            <div id="MsgError_Tada">
+              (ErrorCode 999)
+            </div>
+          </div>
+          <div id="OkBtn_Tada">
+            <p>Confirm</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="SendLog" style="visibility:hidden"></button>
+
+  <script type="text/javascript">
+    let progressBar_JiliNew = document.getElementById('progressBar_JiliNew_IN');
+    let progressBar_TaDa = document.getElementById('progressBar_TaDa_IN');
+    var bodyTag = document.getElementsByTagName('body')[0];
+    let tadaImg = document.getElementById('TaDa_gif');
+    let JiliNew_gif = document.getElementById('JiliNew_gif');
+
+    let img = {
+      logo_cn: "logo_cn.png",
+      logo_en: "logo_en.png",
+      logo_tw: "logo_tw.png",
+      logo_th: "logo_th.png",
+      logo_id: "logo_id.png",
+      logo_vn: "logo_vn.png",
+      logo_mm: "logo_mm.png",
+      logo_jp: "logo_jp.png",
+      logo_hi: "logo_hi.png",
+      logo_ta: "logo_ta.png",
+      logo_ms: "logo_ms.png",
+      logo_ko: "logo_ko.png",
+      logo_bn: "logo_bn.png",
+      logo_es: "logo_es.png",
+      logo_pt: "logo_pt.png",
+
+      txt1_cn: "txt1_cn.png",
+      txt1_en: "txt1_en.png",
+      txt1_tw: "txt1_tw.png",
+      txt1_th: "txt1_th.png",
+      txt1_id: "txt1_id.png",
+      txt1_vn: "txt1_vn.png",
+      txt1_mm: "txt1_mm.png",
+      txt1_jp: "txt1_jp.png",
+      txt1_hi: "txt1_hi.png",
+      txt1_ta: "txt1_ta.png",
+      txt1_ms: "txt1_ms.png",
+      txt1_ko: "txt1_ko.png",
+      txt1_bn: "txt1_bn.png",
+      txt1_es: "txt1_es.png",
+      txt1_pt: "txt1_pt.png",
+
+      txt2_cn: "txt2_cn.png",
+      txt2_en: "txt2_en.png",
+      txt2_tw: "txt2_tw.png",
+      txt2_th: "txt2_th.png",
+      txt2_id: "txt2_id.png",
+      txt2_vn: "txt2_vn.png",
+      txt2_mm: "txt2_mm.png",
+      txt2_jp: "txt2_jp.png",
+      txt2_hi: "txt2_hi.png",
+      txt2_ta: "txt2_ta.png",
+      txt2_ms: "txt2_ms.png",
+      txt2_ko: "txt2_ko.png",
+      txt2_bn: "txt2_bn.png",
+      txt2_es: "txt2_es.png",
+      txt2_pt: "txt2_pt.png",
+    };
+    let SkinType = {
+      JILI: 0,
+      TADA: 1,
+      ACE_ROYALE: 2,
+      JILI_START: 3,
+      TADA_CASINO: 4,
+      NONE: 5,
+      UFA: 6,
+    };
+
+    function CheckUFALogo() {
+      var url = window.location.href;
+
+      if ((url.search(/\/fg2\//g) != -1) ||
+        (url.search(/\/rsx2\//g) != -1) ||
+        (url.search(/\/mc2\//g) != -1) ||
+        (url.search(/\/c72\//g) != -1) ||
+        (url.search(/\/fb\//g) != -1) ||
+        (url.search(/\/fullhouse2\//g) != -1)) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+
+    let splash = document.getElementById("splash");
+    let jiliNewBlock = document.getElementById('JiliNew');
+    let tadaBlock = document.getElementById('TaDa');
+    jiliNewBlock.style.display = "none";
+    tadaBlock.style.display = "none";
+
+    let rand = Math.floor(Math.random() * 3);
+    let api = GetLinkParameterByName('apiId');
+    let gs = (GetLinkParameterByName("gs") || GetLinkParameterByName("domain_platform") || "gnidnawcs")
+      .split("").reverse().join("");
+    let tadaSkin = GetLinkParameterByName("tadaSkin");
+    let skin = GetLinkParameterByName("skin");
+    let replayData = GetLinkParameterByName("replaydata");
+    if(replayData) {
+      skin = CheckReplayUrlSkin("skin");
+      api = CheckReplayUrlSkin("apiId");
+    }
+
+    let progressNow = 0;
+    let progressMax = 0;
+    let progressSpeed = 1;
+    SetProgress = function (progress) {
+      progressBar_JiliNew.style.width = `${progress}%`;
+      progressBar_TaDa.style.width = `${progress}%`;
+    }
+
+    // 建立一個進度條的假表演函數
+    window.SetProgressInterval = function (start, end) {
+      progressMax = start;
+      if (window.progressInterval != undefined) return;
+      window.progressInterval = setInterval(() => {
+        if (progressNow < progressMax) {
+          let progressDiff = progressMax - progressNow;
+          if (progressDiff < 4) {
+            progressSpeed = 0.05;
+          } else if (progressDiff < 7) {
+            progressSpeed = 0.2;
+          } else if (progressDiff > 15) {
+            progressSpeed = 4;
+          } else {
+            progressSpeed = 1;
+          }
+          progressNow += progressSpeed;
+          if (progressNow >= 100) {
+            progressNow = 100;
+            clearInterval(window.progressInterval)
+            window.progressInterval = undefined
+          }
+          SetProgress(progressNow);
+        }
+      }, 17);
+    }
+    window.SetProgressInterval(10)
+
+    function GetLanguage() {
+      let locale;
+      var search = location.search.split(/(?:\?|&)/g);
+      for (var i = 0; i < search.length; i++) {
+        var ln = search[i].split("ln=")[1];
+        if (ln) {
+          locale = ln.toLowerCase();
+          break;
+        }
+        var lang = search[i].split("lang=")[1];
+        if (lang) {
+          locale = lang.toLowerCase();
+          break;
+        }
+      }
+      if (locale) {
+        let str = FormatLang(locale);
+        if (str !== "") {
+          return str;
+        }
+      }
+      let str = FormatLang(navigator.language);
+      if (str !== "") {
+        return str;
+      }
+      return Default_Language;
+    }
+
+    let locale = GetLanguage();
+
+    var setting = [691];
+    let isShow = true;
+    for (var i = 0; i < setting.length; i++) {
+      if (api == setting[i]) {
+        isShow = false;
+        break;
+      }
+    }
+    // if (isShow) {
+    jiliNewBlock.style.display = "flex";
+    splash.style.backgroundColor = "black";
+    splash.style.backgroundImage = "";
+    // }
+    // else{
+    //   jiliBlock.style.display = "flex";
+    //   jiliNewBlock.style.display = "none";
+    //   splash.style.backgroundImage = "url(gameViewbg_J03.png), url(gameViewbg_J02.png)";
+    // }
+
+    tadaBlock.style.display = "none";
+
+    if (api == 4) { // api = 1006 已轉給BMM使用
+      // rand = 2;
+      // jiliBlock.style.display = "flex";
+      // tadaBlock.style.display = "none";
+      // splash.style.backgroundImage = "url(gameViewbg_J03.png), url(gameViewbg_J02.png)";
+    }
+    else if (api == 200 || api == 201 || (skin && skin == SkinType.ACE_ROYALE.toString())) {
+      // jiliBlock.style.display = "flex";
+      // tadaBlock.style.display = "none";
+      // splash.style.backgroundImage = "url(gameViewbg_J03.png), url(gameViewbg_J02.png)";
+    }
+    else if (api == 301 || (skin && skin == SkinType.TADA_CASINO.toString())) {
+      tadaImg.src = "TaDa_APP_apng.png";
+      jiliNewBlock.style.display = "none";
+      tadaBlock.style.display = "flex";
+      splash.style.backgroundColor = "black";
+      splash.style.backgroundImage = "";
+    }
+    else if (((api == 1072 || api == 1003) && CheckUFALogo()) || (skin && skin == SkinType.UFA.toString())) {
+      // do nothing
+    }
+    else if (api == 691) {
+      JiliNew_gif.src = img["logo_" + locale];
+    }
+    else if (api == 20110) {
+      // SSS用
+      tadaImg.src = "VegasEmpire.png";
+      rand = 2;
+      jiliNewBlock.style.display = "none";
+      tadaBlock.style.display = "flex";
+      splash.style.backgroundColor = "black";
+      splash.style.backgroundImage = "";
+    }
+    else if (api >= 20000 && api <= 29999) {
+      // SSS用
+      JiliNew_gif.src = "JILI_US.png";
+    }
+    else if (api == 3 || (tadaSkin && tadaSkin === "1") || (skin && (skin == SkinType.TADA.toString() || skin == SkinType.TADA_CASINO.toString()))) {
+      // else if (api == 3) {
+      tadaImg.src = "TaDa_Logo_APNG_s.png";
+      rand = 2;
+      jiliNewBlock.style.display = "none";
+      tadaBlock.style.display = "flex";
+      splash.style.backgroundColor = "black";
+      splash.style.backgroundImage = "";
+      link.href = 'favicon1.ico';
+    }
+    else {
+      // jiliBlock.style.display = "flex";
+      // tadaBlock.style.display = "none";
+      // splash.style.backgroundImage = "url(gameViewbg_J03.png), url(gameViewbg_J02.png)";
+    }
+    // if ( rand === 0 )
+    // {
+    //   mission.style.display = "block";
+    //   same.style.display = "block";
+    //   progressBar.style.marginTop = -1 + "%";
+    // }
+    // else if ( rand === 1 )
+    // {
+    //   signUp.style.display = "block";
+    //   same.style.display = "block";
+    //   progressBar.style.marginTop = -1 + "%";
+    // }
+    // else
+    // {
+    // }
+    // var setting = [6, 8, 15, 16, 691];
+    // let isShow = true;
+    // for (var i = 0; i < setting.length; i++) {
+    //   if (api == setting[i]) {
+    //     isShow = false;
+    //     break;
+    //   }
+    // }
+    // if (isShow) {
+    //   jiliImg.style.display = '';
+    // }
+
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    var isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i) != null;
+    var Default_Language = "cn";
+
+    function FormatLang(str) {
+      str = str.toLocaleLowerCase();
+      if (str == "en-us" || str == "en") {
+        return "en";
+      } else if (str == "zh-tw" || str == "tw") {
+        return "tw";
+      } else if (str == "zh-cn" || str == "cn") {
+        return "cn";
+      } else if (str == "th-th" || str == "th") {
+        return "th";
+      } else if (str == "vi-vn" || str == "vn") {
+        return "vn";
+      } else if (str == "id-id" || str == "id") {
+        return "id";
+      } else if (str == "my-mm" || str == "mm") {
+        return "mm";
+      } else if (str == "ja-jp" || str == "jp") {
+        return "jp";
+      } else if (str == "hi-in" || str == "hi") {
+        return "hi";
+      } else if (str == "ta-mi" || str == "ta-in" || str == "ta") {
+        return "ta";
+      } else if (str == "ms-my" || str == "ms") {
+        return "ms";
+      } else if (str == "ko-kr" || str == "ko") {
+        return "ko";
+      } else if (str == "bn-in" || str == "bn") {
+        return "bn";
+      } else if (str == "es-ar" || str == "es") {
+        return "es";
+      } else if (str == "pt-br" || str == "pt") {
+        return "pt";
+      } else {
+        return "";
+      }
+    }
+
+    // logo圖載入完成事件
+    JiliNew_gif.onload = function (event) {
+      // 黑頻結束時間點 Log
+      pageLoadTiming.logTime('log952');
+
+      // 延後送LOG時機，避免瀏覽器請求塞車
+      pageLoadTiming.calculateDuration(940, 'headStartTime', 'log940');
+      pageLoadTiming.calculateDuration(952, 'headStartTime', 'log952');
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // HTML 分析完成時間點 Log
+      pageLoadTiming.logTime('log950');
+      pageLoadTiming.calculateDuration(950, 'headStartTime', 'log950');
+    });
+  </script>
+
+  <!-- <script type="text/javascript">
+    (function () {
+      // open web debugger console
+      if (typeof VConsole !== 'undefined') {
+        window.vConsole = new VConsole();
+      }
+
+      var debug = window._CCSettings.debug;
+
+      function loadScript(moduleName, cb) {
+        function scriptLoaded() {
+          document.body.removeChild(domScript);
+          domScript.removeEventListener('load', scriptLoaded, false);
+          cb && cb();
+        };
+        var domScript = document.createElement('script');
+        domScript.async = true;
+        domScript.src = moduleName;
+        domScript.addEventListener('load', scriptLoaded, false);
+        document.body.appendChild(domScript);
+      }
+
+      loadScript(debug ? 'cocos2d-js.js' : 'cocos2d-js-min.js', function () {
+        if (CC_PHYSICS_BUILTIN || CC_PHYSICS_CANNON) {
+          loadScript(debug ? 'physics.js' : 'physics-min.js', window.boot);
+        }
+        else {
+          window.boot();
+        }
+      });
+    })();
+  </script> -->
+
+  
+<!-- Polyfills bundle. -->
+<script src="src/polyfills.bundle.5adbf.js" charset="utf-8"> </script>
+
+<!-- SystemJS support. -->
+<script src="src/system.bundle.692e9.js" charset="utf-8"> </script>
+
+<!-- Import map -->
+<script src="src/import-map.e7209.json" type="systemjs-importmap" charset="utf-8"> </script>
+
+<script>
+    System.import('./index.88f39.js').catch(function(err) { console.error(err); })
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>shell import test</title></head>
+<body>
+<script>
+window.__T = [];
+function L(m){ window.__T.push(Date.now()+' '+m); console.log(m);
+  try{var x=new XMLHttpRequest();x.open('POST','/api/log',true);x.setRequestHeader('content-type','application/json');x.send(JSON.stringify({t:Date.now(),level:'log',msg:m}));}catch(e){} }
+L('test page start');
+</script>
+<script src="/tlp/src/polyfills.bundle.5adbf.js"></script>
+<script src="/tlp/src/system.bundle.692e9.js"></script>
+<script src="/tlp/src/import-map.e7209.json" type="systemjs-importmap"></script>
+<script>
+L('system ready: ' + (typeof System));
+setTimeout(function(){ L('watchdog 5s'); }, 5000);
+setTimeout(function(){ L('watchdog 15s'); }, 15000);
+setTimeout(function(){ L('watchdog 30s'); }, 30000);
+setTimeout(function(){ L('watchdog 60s'); }, 60000);
+try {
+  L('importing bundle...');
+  System.import('/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js')
+    .then(function(m){ L('bundle OK exports=' + (m?Object.keys(m).join(','):'null')); })
+    .catch(function(e){ L('bundle FAIL ' + (e&&e.message||e)); });
+} catch(e) { L('import threw ' + e); }
+</script>
+</body></html>

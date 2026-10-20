@@ -1,0 +1,23 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+<script>
+function L(m){console.log(m);try{var x=new XMLHttpRequest();x.open('POST','/api/log',true);x.setRequestHeader('content-type','application/json');x.send(JSON.stringify({t:Date.now(),level:'log',msg:m}));}catch(e){}}
+L('start');
+</script>
+<script src="/tlp/src/polyfills.bundle.5adbf.js"></script>
+<script src="/tlp/src/system.bundle.692e9.js"></script>
+<script src="/tlp/src/import-map.e7209.json" type="systemjs-importmap"></script>
+<script>
+var B='/astarte2/3.6/web-mobile/assets/';
+var list=[['tada','1d0e8'],['tadaMain','f2e47'],['extra','09c5f'],['en','b30ea'],['es','f9cac'],['other','ad23f']];
+(function next(i){
+  if(i>=list.length){L('ALL DONE');return;}
+  var n=list[i][0],h=list[i][1];
+  L('loading '+n+' ...');
+  var el=document.createElement('script'); el.src=B+n+'/index.'+h+'.js'; el.async=true;
+  el.onload=function(){ L('OK '+n); setTimeout(function(){next(i+1);},100); };
+  el.onerror=function(){ L('FAIL '+n); setTimeout(function(){next(i+1);},100); };
+  document.head.appendChild(el);
+})(0);
+setInterval(function(){ L('tick'); }, 3000);
+</script>
+</body></html>

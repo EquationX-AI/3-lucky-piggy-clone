@@ -1,0 +1,2 @@
+{"name":"3-lucky-piggy-clone","version":"0.1.0","private":true,
+"scripts":{"start":"node server.cjs","verify":"node verify.mjs"}}

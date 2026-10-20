@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>3 Lucky Piggy — 控奖面板</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui;background:#111;color:#e0e0e0;height:100vh;display:flex;flex-direction:column}
+header{background:#1a1a2e;padding:8px 16px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #333}
+header h1{font-size:1.1em;color:#ff69b4}
+.main{display:flex;flex:1;overflow:hidden}
+.left{width:340px;overflow-y:auto;border-right:1px solid #333;background:#0d1117}
+.right{flex:1;display:flex;flex-direction:column;background:#000}
+.right iframe{flex:1;border:none}
+.cat{padding:8px 12px;background:#161b22;color:#58a6ff;font-weight:bold;font-size:.85em;position:sticky;top:0;z-index:1}
+.item{padding:6px 12px;cursor:pointer;font-size:.8em;border-bottom:1px solid #1a1a2e;display:flex;justify-content:space-between}
+.item:hover{background:#1a1a4e}
+.item.active{background:#1a4a1a;border-left:3px solid #4caf50}
+.status{padding:8px 12px;background:#0d1117;border-top:1px solid #333;font-size:.8em;font-family:monospace}
+.status.ok{color:#4caf50}.status.err{color:#f44336}
+footer{background:#1a1a2e;padding:6px 12px;display:flex;gap:8px;border-top:1px solid #333}
+footer button{background:#e94560;color:#fff;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;font-size:.8em}
+</style></head><body>
+<header><h1>🐷 3 Lucky Piggy</h1><span>余额: <span id="bal">-</span></span></header>
+<div class="main">
+  <div class="left" id="list"></div>
+  <div class="right"><iframe id="game" src="/"></iframe><div class="status" id="status">就绪</div></div>
+</div>
+<footer><button onclick="verifyAll()">🔄 逐种验证</button><span id="prog" style="font-size:.8em;color:#aaa"></span></footer>
+<script>
+const BASE=location.origin;
+let balance=100000;
+async function api(p,b){const o=b?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(b)}:{};return(await fetch(BASE+p,o)).json();}
+
+// 奖种列表
+const KINDS = [
+  {id:'miss',kind:'spin',label:'miss（不中奖）',preset:0},
+  {id:'line-win',kind:'spin',label:'连线中奖（符号6连3）',preset:1},
+  {id:'scatter-3',kind:'scatter',label:'3 Scatter 触发免费游戏',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'jp-mini',kind:'jackpot',label:'奖池 MINI (3,000)',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'jp-minor',kind:'jackpot',label:'奖池 MINOR (6,000)',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'jp-major',kind:'jackpot',label:'奖池 MAJOR (30,000)',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'jp-grand',kind:'jackpot',label:'奖池 GRAND (3,000,000)',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'buy-bonus-1',kind:'buy',label:'购买奖励局 档1 (×50)',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'buy-bonus-2',kind:'buy',label:'购买奖励局 档2 (×100)',preset:0,uncovered:true,reason:'需录制样本'},
+  {id:'buy-bonus-3',kind:'buy',label:'购买奖励局 档3 (×200)',preset:0,uncovered:true,reason:'需录制样本'},
+];
+
+function render(){
+  const l=document.getElementById('list');l.innerHTML='';
+  const cats={};for(const k of KINDS){const c=k.kind||'other';(cats[c]=cats[c]||[]).push(k);}
+  for(const[c,items]of Object.entries(cats)){
+    const h=document.createElement('div');h.className='cat';h.textContent=c+' ('+items.length+')';l.appendChild(h);
+    for(const k of items){
+      const d=document.createElement('div');d.className='item';
+      d.innerHTML='<span>'+k.label+'</span>'+(k.uncovered?'<span style="color:#f44">SKIP</span>':'');
+      d.onclick=(e)=>inject(k,e);l.appendChild(d);
+    }
+  }
+}
+
+async function inject(k,evt){
+  const st=document.getElementById('status');
+  if(k.uncovered){st.className='status err';st.textContent='⊘ '+k.label+' — '+k.reason;return;}
+  try{
+    // 直接用 preset index 选择下一局
+    const r=await api('/api/spin',{presetIndex:k.preset});
+    st.className='status ok';
+    st.textContent='✓ '+k.label+' — win='+r.data?.TotalWin+' bal='+r.balance;
+    document.getElementById('bal').textContent=r.balance;
+    if(evt)evt.target.closest('.item')?.classList.add('active');
+  }catch(e){st.className='status err';st.textContent='✗ '+e.message;}
+}
+
+async function verifyAll(){
+  const prog=document.getElementById('prog');
+  let pass=0,fail=0,skip=0;
+  for(const k of KINDS){
+    if(k.uncovered){skip++;continue;}
+    try{
+      const r=await api('/api/spin',{presetIndex:k.preset});
+      if(r.code===0)pass++;else fail++;
+    }catch{fail++;}
+  }
+  prog.textContent='完成: '+pass+'✓ '+fail+'✗ '+skip+'⊘';
+}
+
+render();
+api('/api/init',{}).then(r=>{balance=r.data?.WalletInfo?.[0]?.coin||0;document.getElementById('bal').textContent=balance;});
+</script></body></html>

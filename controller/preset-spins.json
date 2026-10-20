@@ -1,0 +1,60 @@
+[
+  {
+    "_note": "普通 spin miss（从代码模板提取的默认值格式）",
+    "RoundQueue": [{
+      "MainPlateSymbol": [
+        {"Col": [6, 6, 6]},
+        {"Col": [10, 14, 4]},
+        {"Col": [12, 3, 6]},
+        {"Col": [4, 2, 13]},
+        {"Col": [7, 7, 4]}
+      ],
+      "FreePlateSymbol": [
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]}
+      ],
+      "WinLineInfos": [],
+      "MaxFlag": false
+    }],
+    "FolderIndex": 0,
+    "TotalWin": 0,
+    "FreeTotalWin": 0,
+    "FreeRemainRound": 0,
+    "FreeNowRound": 0,
+    "CrackLevels": [0, 0, 0, 0, 0],
+    "AckType": 0,
+    "ShowIndex": ""
+  },
+  {
+    "_note": "连线中奖——符号 6（钞票）5×3 第 1 线连 3",
+    "RoundQueue": [{
+      "MainPlateSymbol": [
+        {"Col": [6, 1, 2]},
+        {"Col": [6, 3, 4]},
+        {"Col": [6, 5, 7]},
+        {"Col": [8, 9, 10]},
+        {"Col": [11, 12, 13]}
+      ],
+      "FreePlateSymbol": [
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]},
+        {"Col": [{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0},{"Symbol":21,"JPState":0,"JPMult":0,"Number":0}]}
+      ],
+      "WinLineInfos": [{"LineNum": 0, "Count": 3, "Symbol": 6, "Win": 500}],
+      "MaxFlag": false
+    }],
+    "FolderIndex": 0,
+    "TotalWin": 500,
+    "FreeTotalWin": 0,
+    "FreeRemainRound": 0,
+    "FreeNowRound": 0,
+    "CrackLevels": [0, 0, 0, 0, 0],
+    "AckType": 0,
+    "ShowIndex": ""
+  }
+]
