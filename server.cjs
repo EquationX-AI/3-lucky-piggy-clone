@@ -294,11 +294,20 @@ const server = http.createServer(async (req, res) => {
     const fp = path.join(__dirname, 'patched', process.env.CLEANMAIN ? 'main.clean.js' : 'main.d2cb2.js');
     if (serveFile(fp, res)) return;
   }
-  if (!process.env.NOCLEAN && p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
+  // 原版外壳只改 1e9 空转（不反混淆、不清洗）
+  if (process.env.NOSPIN) {
+    if (p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
+      if (serveFile(path.join(__dirname, 'stage/shell-nospin/bundle.js'), res)) return;
+    }
+    if (p === '/astarte2/3.6/web-mobile/assets/other/index.ad23f.js') {
+      if (serveFile(path.join(__dirname, 'stage/shell-nospin/other.js'), res)) return;
+    }
+  }
+  if (!process.env.NOCLEAN && !process.env.NOSPIN && p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
     const fp = path.join(__dirname, 'cleanshell', 'bundle.js');
     if (serveFile(fp, res)) return;
   }
-  if (!process.env.NOCLEAN && p === '/astarte2/3.6/web-mobile/assets/other/index.ad23f.js') {
+  if (!process.env.NOCLEAN && !process.env.NOSPIN && p === '/astarte2/3.6/web-mobile/assets/other/index.ad23f.js') {
     const fp = path.join(__dirname, 'cleanshell', 'other.js');
     if (serveFile(fp, res)) return;
   }

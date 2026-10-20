@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-10-20T03:26:42.051Z",
+  "totalSeconds": 0,
+  "files": [
+    {
+      "input": "mirror/shell/src/chunks/bundle.fb6e5.js",
+      "error": "子进程退出码 1: 1)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:731:20)\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)\n    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:664:36)\n    at TracingChannel.tracePromise (node:diagnostics_channel:350:14)\n    at ModuleLoader.import (node:internal/modules/esm/loader:663:21) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v22.22.0\n"
+    }
+  ]
+}
