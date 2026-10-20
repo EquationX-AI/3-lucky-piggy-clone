@@ -407,6 +407,26 @@
     ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'].forEach(function (k) { try { w.WebSocket[k] = RealWS[k]; } catch (e) {} });
   }
 
+  // ---------- 8.4 预注册外壳 bundle 的 virtual 模块 ----------
+  // Cocos 的 loadBundle 会 System.import('virtual:///prerequisite-imports/<bundle>')，
+  // 该模块本应由 <bundle>/index.js 里注册。本地若那段没跑到，就先注册空模块兜底，
+  // 让 loadBundle 至少能继续（随后再被真实 index.js 覆盖）。
+  var VIRTUAL_PRELOAD = {};
+  (function registerVirtuals() {
+    var S = w.System;
+    if (/[?&]novirtual=1/.test(location.search)) { log('virtual 预注册已跳过'); return; }
+    if (!S || typeof S.register !== 'function') return;
+    // 只兜底真正缺失的；main/internal/game 必须由游戏自己注册，提前占位会把它们顶掉
+    ['other', 'extra'].forEach(function (n) {
+      var id = 'virtual:///prerequisite-imports/' + n;
+      try {
+        S.register(id, [], function () { return { setters: [], execute: function () {} }; });
+        VIRTUAL_PRELOAD[n] = 1;
+      } catch (e) { /* 已注册 */ }
+    });
+    log('virtual 预注册: ' + Object.keys(VIRTUAL_PRELOAD).join(','));
+  })();
+
   // ---------- 8.5 修 https 硬编码：游戏用 "https://" + location.host 拉外壳 ----------
   // 本地服务是 http，https 会 TLS 失败 → versions.json 拿不到 → 起不来。
   // 只把"指向本机"的 https 改成 http，其它外链仍由零外发逻辑处理。

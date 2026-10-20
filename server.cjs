@@ -211,6 +211,11 @@ const server = http.createServer(async (req, res) => {
   }
 
   // ---------- 清洗版外壳（替换 Jscrambler 原字节，外壳允许替换） ----------
+  // main 里唯一一处 https:// 定点改 http://（本地服务是 http）
+  if (p === '/tlp/assets/main/index.d2cb2.js') {
+    const fp = path.join(__dirname, 'patched', process.env.CLEANMAIN ? 'main.clean.js' : 'main.d2cb2.js');
+    if (serveFile(fp, res)) return;
+  }
   if (!process.env.NOCLEAN && p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
     const fp = path.join(__dirname, 'cleanshell', 'bundle.js');
     if (serveFile(fp, res)) return;
