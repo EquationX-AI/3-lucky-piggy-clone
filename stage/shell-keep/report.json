@@ -1,10 +1,262 @@
 {
-  "generatedAt": "2026-10-20T03:26:42.051Z",
-  "totalSeconds": 0,
+  "generatedAt": "2026-10-20T03:29:35.517Z",
+  "totalSeconds": 46.4,
   "files": [
     {
-      "input": "mirror/shell/src/chunks/bundle.fb6e5.js",
-      "error": "子进程退出码 1: 1)\n    at #cachedDefaultResolve (node:internal/modules/esm/loader:731:20)\n    at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)\n    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)\n    at onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:664:36)\n    at TracingChannel.tracePromise (node:diagnostics_channel:350:14)\n    at ModuleLoader.import (node:internal/modules/esm/loader:663:21) {\n  code: 'ERR_MODULE_NOT_FOUND'\n}\n\nNode.js v22.22.0\n"
+      "input": "/Users/scott/dora-team/agents/kangkang/repos/3-lucky-piggy-clone/mirror/shell/assets/other/index.ad23f.js",
+      "strings": "/Users/scott/dora-team/agents/kangkang/repos/slot-replication/replicas/td109/inspect/strings/shell.R7xpx-table-v2.json",
+      "preds": null,
+      "timing": {
+        "CFF": 10,
+        "字符串与常量": 35.7,
+        "生成": 0.3
+      },
+      "ns": "R7xpx",
+      "cffDynInit": {
+        "tried": 16,
+        "resolved": 16
+      },
+      "integrity": {
+        "families": [
+          {
+            "names": [
+              "Y71",
+              "r2z"
+            ],
+            "encodedArg": 2,
+            "steps": [
+              "y2S=2",
+              "y2S=4",
+              "y2S=8",
+              "y2S=4",
+              "y2S=3"
+            ]
+          }
+        ],
+        "folded": 220,
+        "unresolved": 0,
+        "order": "reverse",
+        "validation": {
+          "samples": 46,
+          "hitReverse": 46,
+          "hitForward": 0
+        },
+        "error": null
+      },
+      "keyed": {
+        "names": [
+          "W_Uh",
+          "T9Ey",
+          "Q1zj",
+          "K2b3",
+          "m_allMemberAccount",
+          "m_refusedLabel",
+          "READY",
+          "N4oi"
+        ],
+        "folded": 130,
+        "forwarders": 5,
+        "plausibility": {
+          "checked": 28,
+          "plausible": 28,
+          "ratio": 1,
+          "doubt": []
+        }
+      },
+      "decode": {
+        "decoders": [
+          "W2M$",
+          "O9MW"
+        ],
+        "decoded": 26721,
+        "missed": 2,
+        "missIdx": {
+          "6901": 2
+        },
+        "dynamicArg": 0,
+        "preds": 0,
+        "folded": 5,
+        "concat": 3659,
+        "inlined": 166000,
+        "deadAssign": 9343,
+        "member": 134351
+      },
+      "output": "/Users/scott/dora-team/agents/kangkang/repos/3-lucky-piggy-clone/stage/shell-keep/index.js",
+      "outBytes": 7157213,
+      "outLines": 117131,
+      "syntaxOk": true,
+      "scan": {
+        "jscrambler": {
+          "count": 18,
+          "samples": [
+            {
+              "line": 895,
+              "text": "if (typeof _global.g$M().SendJscramblerLog !== \"function\") {"
+            },
+            {
+              "line": 903,
+              "text": "_global.g$M().SendJscramblerLog(\"GameTampering\");"
+            },
+            {
+              "line": 1383,
+              "text": "if (typeof _global.g$M().SendJscramblerLog !== \"function\") {"
+            },
+            {
+              "line": 1391,
+              "text": "_global.g$M().SendJscramblerLog(\"GameTampering\");"
+            },
+            {
+              "line": 2456,
+              "text": "if (typeof _global.g$M().SendJscramblerLog !== \"function\") {"
+            }
+          ]
+        },
+        "notification": {
+          "count": 0,
+          "samples": []
+        },
+        "违规码 j-0xx": {
+          "count": 15,
+          "samples": [
+            {
+              "line": 751,
+              "text": "L9O = L9O || \"j-014-00022\";"
+            },
+            {
+              "line": 753,
+              "text": "L9O = L9O || \"j-014-00024\";"
+            },
+            {
+              "line": 755,
+              "text": "L9O = L9O || \"j-014-00026\";"
+            },
+            {
+              "line": 766,
+              "text": "L9O = L9O || \"j-014-00021\";"
+            },
+            {
+              "line": 774,
+              "text": "L9O = L9O || \"j-014-00018\";"
+            }
+          ]
+        },
+        "Function.prototype.toString": {
+          "count": 2,
+          "samples": [
+            {
+              "line": 1064,
+              "text": "} else if (_global.B9e(Function.prototype.toString, e77, f$m)) {"
+            },
+            {
+              "line": 1154,
+              "text": "e7a = Function.prototype.toString;"
+            }
+          ]
+        },
+        "MurmurHash 常量": {
+          "count": 3,
+          "samples": [
+            {
+              "line": 1086,
+              "text": "X9d = 3432918353;"
+            },
+            {
+              "line": 1087,
+              "text": "K96 = 2971072446;"
+            },
+            {
+              "line": 2207,
+              "text": "J$Hc = 3432918353, s_qv = J$Hc - 2971072446;"
+            }
+          ]
+        },
+        "SendJscramblerLog / GameTampering": {
+          "count": 13,
+          "samples": [
+            {
+              "line": 895,
+              "text": "if (typeof _global.g$M().SendJscramblerLog !== \"function\") {"
+            },
+            {
+              "line": 903,
+              "text": "_global.g$M().SendJscramblerLog(\"GameTampering\");"
+            },
+            {
+              "line": 1383,
+              "text": "if (typeof _global.g$M().SendJscramblerLog !== \"function\") {"
+            },
+            {
+              "line": 1391,
+              "text": "_global.g$M().SendJscramblerLog(\"GameTampering\");"
+            },
+            {
+              "line": 2456,
+              "text": "if (typeof _global.g$M().SendJscramblerLog !== \"function\") {"
+            }
+          ]
+        },
+        "域名锁 X0gnGEw": {
+          "count": 0,
+          "samples": []
+        },
+        "自毁 about:blank": {
+          "count": 5,
+          "samples": [
+            {
+              "line": 31981,
+              "text": "}, n7_[\"about:blank \"] = function (e7i, K5j) {"
+            },
+            {
+              "line": 31983,
+              "text": "null == (z2Z = this.Ended) || z2Z[\"about:blank \"](e7i, K5j);"
+            },
+            {
+              "line": 103059,
+              "text": "}, q6g[\"about:blank \"] = function (Z0I, i$$) {"
+            },
+            {
+              "line": 107197,
+              "text": "if (e6H.TotalPrice(p8Q.getSiblingIndex) || H5l.getPosition() < 0) return this.a8zganfqvu6 && (this.a8zganfqvu6 = !1, this.m_freeSpinRightBtn.ERROR_SYSTEM_FAIL(!"
+            },
+            {
+              "line": 107198,
+              "text": "if (this.verify() ? this.a8zganfqvu6 || (this.a8zganfqvu6 = !0, this.m_freeSpinRightBtn.ERROR_SYSTEM_FAIL(!0), s0j[\"about:blank \"](!0, this.m_freeSpinRightBtn.n"
+            }
+          ]
+        },
+        "_global 运行时引用": {
+          "count": 326,
+          "samples": [
+            {
+              "line": 1,
+              "text": "const _global = globalThis;"
+            },
+            {
+              "line": 2,
+              "text": "_global[41018] = function () {"
+            },
+            {
+              "line": 29,
+              "text": "_global[154204] = function () {"
+            },
+            {
+              "line": 43,
+              "text": "_global.m7hkh7D = m4iw8H9;"
+            },
+            {
+              "line": 44,
+              "text": "m1pFwrm(_global[41018]);"
+            }
+          ]
+        }
+      },
+      "sentinels": {
+        "register": 1,
+        "SpinAck": 2,
+        "GameView": 0,
+        "OnCommand": 13
+      },
+      "sentinelWarning": "字符串还原哨兵缺失：GameView 未出现在产出中——可能字符串表错位或对错了文件（用的是默认哨兵：外壳 bundle 天然没有 SpinAck/GameView，其他框架也会缺；请用 --sentinels 按文件指定后再判断）"
     }
   ]
 }

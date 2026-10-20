@@ -294,6 +294,15 @@ const server = http.createServer(async (req, res) => {
     const fp = path.join(__dirname, 'patched', process.env.CLEANMAIN ? 'main.clean.js' : 'main.d2cb2.js');
     if (serveFile(fp, res)) return;
   }
+  // keep-runtime 产物（保留运行时引导，只还原字符串/常量）
+  if (process.env.SHELLKEEP) {
+    if (p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
+      if (serveFile(path.join(__dirname, 'stage/shell-keep/bundle.js'), res)) return;
+    }
+    if (p === '/astarte2/3.6/web-mobile/assets/other/index.ad23f.js') {
+      if (serveFile(path.join(__dirname, 'stage/shell-keep/index.js'), res)) return;
+    }
+  }
   // 原版外壳只改 1e9 空转（不反混淆、不清洗）
   if (process.env.NOSPIN) {
     if (p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {

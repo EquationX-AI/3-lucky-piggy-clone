@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "type": "module",
+  "description": "复刻流程公共工具。full-pipeline.mjs 从本目录解析 @babel/*，所以本目录和 ../jscrambler-deobfuscator-fixed 都要 npm install",
+  "dependencies": {
+    "@babel/core": "*",
+    "@babel/parser": "*",
+    "@babel/traverse": "*",
+    "@babel/generator": "*",
+    "@babel/types": "*"
+  }
+}
