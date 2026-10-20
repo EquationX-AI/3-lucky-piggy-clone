@@ -1,0 +1,22 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+<script>
+function L(m){try{var x=new XMLHttpRequest();x.open('POST','/api/log',true);x.setRequestHeader('content-type','application/json');x.send(JSON.stringify({t:Date.now(),level:'log',msg:String(m).slice(0,900)}));}catch(e){}}
+L('reg-test start');
+</script>
+<script src="/tlp/src/polyfills.bundle.5adbf.js"></script>
+<script src="/tlp/src/system.bundle.692e9.js"></script>
+<script src="/tlp/src/import-map.e7209.json" type="systemjs-importmap"></script>
+<script>
+var ORIG=System.register, seen=[];
+System.register=function(name,deps,declare){
+  try{ seen.push({name:name,deps:Array.isArray(deps)?deps:null,hasDeclare:typeof declare}); L('REG '+name+' deps='+JSON.stringify(deps)); }catch(e){}
+  return ORIG.apply(this,arguments);
+};
+L('hook installed');
+var b=document.createElement('script'); b.src='/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js'; b.async=false;
+b.onload=function(){ L('CHUNK LOADED, seen='+seen.length); };
+b.onerror=function(){ L('CHUNK ERROR'); };
+document.head.appendChild(b);
+setTimeout(function(){ L('after 8s seen='+JSON.stringify(seen.map(function(x){return x.name;}))); },8000);
+</script>
+</body></html>

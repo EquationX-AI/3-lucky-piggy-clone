@@ -1,86 +1,247 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>3 Lucky Piggy — 控奖面板</title>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>3 Lucky Piggy — 控奖面板</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui;background:#111;color:#e0e0e0;height:100vh;display:flex;flex-direction:column}
-header{background:#1a1a2e;padding:8px 16px;display:flex;align-items:center;gap:16px;border-bottom:1px solid #333}
-header h1{font-size:1.1em;color:#ff69b4}
-.main{display:flex;flex:1;overflow:hidden}
-.left{width:340px;overflow-y:auto;border-right:1px solid #333;background:#0d1117}
-.right{flex:1;display:flex;flex-direction:column;background:#000}
-.right iframe{flex:1;border:none}
-.cat{padding:8px 12px;background:#161b22;color:#58a6ff;font-weight:bold;font-size:.85em;position:sticky;top:0;z-index:1}
-.item{padding:6px 12px;cursor:pointer;font-size:.8em;border-bottom:1px solid #1a1a2e;display:flex;justify-content:space-between}
-.item:hover{background:#1a1a4e}
-.item.active{background:#1a4a1a;border-left:3px solid #4caf50}
-.status{padding:8px 12px;background:#0d1117;border-top:1px solid #333;font-size:.8em;font-family:monospace}
-.status.ok{color:#4caf50}.status.err{color:#f44336}
-footer{background:#1a1a2e;padding:6px 12px;display:flex;gap:8px;border-top:1px solid #333}
-footer button{background:#e94560;color:#fff;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;font-size:.8em}
-</style></head><body>
-<header><h1>🐷 3 Lucky Piggy</h1><span>余额: <span id="bal">-</span></span></header>
-<div class="main">
-  <div class="left" id="list"></div>
-  <div class="right"><iframe id="game" src="/"></iframe><div class="status" id="status">就绪</div></div>
+:root{
+  --bg:#0d1117; --panel:#161b22; --line:#30363d; --text:#e6edf3; --dim:#8b949e;
+  --green:#3fb950; --gold:#d29922; --red:#f85149; --purple:#bc8cff; --cyan:#39c5cf; --blue:#58a6ff;
+}
+body{font-family:-apple-system,"PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;display:grid;grid-template-columns:minmax(360px,430px) 1fr;overflow:hidden}
+#left{display:flex;flex-direction:column;border-right:1px solid var(--line);overflow:hidden}
+#head{padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+#head h1{font-size:15px;color:#ff69b4;font-weight:700}
+#head .sub{font-size:11px;color:var(--dim)}
+#status{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+#status div{background:var(--panel);padding:6px 8px;font-size:11px}
+#status b{display:block;font-size:15px;margin-top:2px;font-family:ui-monospace,monospace}
+#scroll{flex:1;overflow-y:auto}
+.sec{border-bottom:1px solid var(--line)}
+.sec>h2{font-size:12px;padding:8px 12px;background:#1a1f27;color:var(--blue);cursor:pointer;display:flex;justify-content:space-between;user-select:none}
+.sec>h2 span{color:var(--dim);font-weight:400}
+.sec .body{padding:10px 12px;display:block}
+.sec.collapsed .body{display:none}
+input,select,button{font-family:inherit;font-size:12px}
+input[type=text],input[type=number],select{background:#0d1117;border:1px solid var(--line);color:var(--text);border-radius:4px;padding:4px 6px;width:100%}
+button{background:#21262d;border:1px solid var(--line);color:var(--text);border-radius:4px;padding:5px 9px;cursor:pointer}
+button:hover{background:#30363d}
+button.primary{background:#1f6feb;border-color:#1f6feb}
+.row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.row>*{flex:1}
+.row .lab{flex:0 0 auto;color:var(--dim);font-size:11px;min-width:52px}
+#kinds .k{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:6px 8px;border:1px solid transparent;border-radius:4px;cursor:pointer;font-size:12px}
+#kinds .k:hover{background:#1c2128;border-color:var(--line)}
+#kinds .k.on{background:#12341c;border-color:var(--green)}
+.tag{font-size:10px;padding:1px 5px;border-radius:3px;color:#0d1117;font-weight:700}
+.tag.miss{background:#6e7681}.tag.small{background:var(--green)}.tag.big{background:var(--gold)}
+.tag.super{background:var(--red)}.tag.wild{background:var(--purple)}.tag.respin{background:var(--cyan)}
+#grid{display:grid;gap:3px;margin:6px 0}
+.cell{aspect-ratio:1;background:#0d1117;border:1px solid var(--line);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;color:var(--dim)}
+.cell:hover{border-color:var(--blue)}
+.cell.set{color:var(--text);background:#1c2128}
+#paytable{width:100%;border-collapse:collapse;font-size:11px}
+#paytable th,#paytable td{border-bottom:1px solid var(--line);padding:3px 5px;text-align:left}
+#paytable th{color:var(--dim);font-weight:400}
+#log{font-family:ui-monospace,monospace;font-size:11px;max-height:160px;overflow-y:auto;color:var(--dim)}
+#log div{padding:2px 0;border-bottom:1px dotted #21262d}
+#right{display:flex;flex-direction:column;background:#000;overflow:hidden}
+#right .bar{padding:6px 12px;background:var(--panel);border-bottom:1px solid var(--line);font-size:11px;color:var(--dim);display:flex;justify-content:space-between}
+#frame{flex:1;border:none;width:100%}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#1f6feb;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;opacity:0;transition:.2s;pointer-events:none}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="left">
+  <div id="head"><h1>🐷 3 Lucky Piggy</h1><span class="sub">ONEAPI_TD_400 · 5×3 · 20 线</span></div>
+  <div id="status">
+    <div>余额<b id="s-bal">—</b></div>
+    <div>注额<b id="s-bet">—</b></div>
+    <div>局数<b id="s-spin">0</b></div>
+    <div>拒绝<b id="s-rej">0</b></div>
+  </div>
+  <div id="scroll">
+
+    <div class="sec"><h2>① 快捷预设 <span id="kinds-count"></span></h2>
+      <div class="body">
+        <div class="row"><input type="text" id="search" placeholder="搜索奖项…"></div>
+        <div id="kinds"></div>
+      </div>
+    </div>
+
+    <div class="sec"><h2>② 盘面编辑器 <span>5 列 × 3 行</span></h2>
+      <div class="body">
+        <div id="grid"></div>
+        <div class="row"><span class="lab">符号</span><select id="sym-pick"></select></div>
+        <div class="row">
+          <button onclick="gridClear()">清空</button>
+          <button onclick="gridRandom()">随机</button>
+          <button class="primary" onclick="gridApply()">按盘面注入</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec collapsed"><h2>③ 特殊玩法 <span>Wild / Scatter / 奖池</span></h2>
+      <div class="body">
+        <div class="row"><span class="lab">Scatter</span><select id="sp-scatter"><option value="0">不触发</option><option value="3">3 个</option><option value="4">4 个</option><option value="5">5 个</option></select></div>
+        <div class="row"><span class="lab">奖池</span><select id="sp-jp"><option value="">不触发</option><option value="MINI">MINI 3,000</option><option value="MINOR">MINOR 6,000</option><option value="MAJOR">MAJOR 30,000</option><option value="GRAND">GRAND 3,000,000</option></select></div>
+        <div class="row"><span class="lab">购买局</span><select id="sp-buy"><option value="">不购买</option><option value="50">档1 ×50</option><option value="100">档2 ×100</option><option value="200">档3 ×200</option></select></div>
+        <div class="row"><button class="primary" onclick="specialInject()">注入特殊玩法</button></div>
+      </div>
+    </div>
+
+    <div class="sec collapsed"><h2>④ 赔付表 <span>按规则页</span></h2>
+      <div class="body"><table id="paytable"></table></div>
+    </div>
+
+    <div class="sec"><h2>⑤ 回合日志 <span id="log-count"></span></h2>
+      <div class="body"><div id="log"></div></div>
+    </div>
+
+    <div class="sec collapsed"><h2>⑥ 操作 <span>批量验证</span></h2>
+      <div class="body">
+        <div class="row"><input type="text" id="adminkey" placeholder="管理员密钥（可选）"></div>
+        <div class="row"><button onclick="playOnce()">试转一局</button><button onclick="verifyAll()">逐种验证</button></div>
+        <div class="row"><span id="prog" class="lab"></span></div>
+      </div>
+    </div>
+
+  </div>
 </div>
-<footer><button onclick="verifyAll()">🔄 逐种验证</button><span id="prog" style="font-size:.8em;color:#aaa"></span></footer>
+
+<div id="right">
+  <div class="bar"><span>游戏画面（同会话）</span><span id="frame-state">加载中…</span></div>
+  <iframe id="frame" src="/tlp/?ssoKey=local&lang=es-AR&apiId=10106&gameID=400&skin=1&region=eu"></iframe>
+</div>
+<div id="toast"></div>
+
 <script>
-const BASE=location.origin;
-let balance=100000;
-async function api(p,b){const o=b?{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(b)}:{};return(await fetch(BASE+p,o)).json();}
-
-// 奖种列表
-const KINDS = [
-  {id:'miss',kind:'spin',label:'miss（不中奖）',preset:0},
-  {id:'line-win',kind:'spin',label:'连线中奖（符号6连3）',preset:1},
-  {id:'scatter-3',kind:'scatter',label:'3 Scatter 触发免费游戏',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'jp-mini',kind:'jackpot',label:'奖池 MINI (3,000)',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'jp-minor',kind:'jackpot',label:'奖池 MINOR (6,000)',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'jp-major',kind:'jackpot',label:'奖池 MAJOR (30,000)',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'jp-grand',kind:'jackpot',label:'奖池 GRAND (3,000,000)',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'buy-bonus-1',kind:'buy',label:'购买奖励局 档1 (×50)',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'buy-bonus-2',kind:'buy',label:'购买奖励局 档2 (×100)',preset:0,uncovered:true,reason:'需录制样本'},
-  {id:'buy-bonus-3',kind:'buy',label:'购买奖励局 档3 (×200)',preset:0,uncovered:true,reason:'需录制样本'},
+const $ = s => document.querySelector(s);
+const SYMS = [
+  {id:0,name:'符号0'},{id:1,name:'符号1'},{id:2,name:'符号2'},{id:3,name:'符号3'},
+  {id:4,name:'符号4'},{id:5,name:'符号5'},{id:6,name:'钞票'},{id:7,name:'符号7'},
+  {id:8,name:'符号8'},{id:9,name:'符号9'},{id:10,name:'符号10'},{id:11,name:'符号11'},
+  {id:12,name:'符号12'},{id:13,name:'符号13'},{id:14,name:'符号14'},
+  {id:20,name:'Wild'},{id:21,name:'空/猪币位'}
 ];
+let kinds = [], selected = null, grid = [[],[],[],[],[]], lastLog = 0;
 
-function render(){
-  const l=document.getElementById('list');l.innerHTML='';
-  const cats={};for(const k of KINDS){const c=k.kind||'other';(cats[c]=cats[c]||[]).push(k);}
-  for(const[c,items]of Object.entries(cats)){
-    const h=document.createElement('div');h.className='cat';h.textContent=c+' ('+items.length+')';l.appendChild(h);
-    for(const k of items){
-      const d=document.createElement('div');d.className='item';
-      d.innerHTML='<span>'+k.label+'</span>'+(k.uncovered?'<span style="color:#f44">SKIP</span>':'');
-      d.onclick=(e)=>inject(k,e);l.appendChild(d);
-    }
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'),1600); }
+async function api(p, opt){ const r = await fetch(p, opt||{}); return r.json(); }
+function fmt(n){ return Number(n||0).toLocaleString('en-US',{maximumFractionDigits:2}); }
+
+function renderKinds(){
+  const q = $('#search').value.trim().toLowerCase();
+  const box = $('#kinds'); box.innerHTML='';
+  const list = kinds.filter(k => !q || (k.label||'').toLowerCase().includes(q) || (k.id||'').toLowerCase().includes(q));
+  for (const k of list){
+    const d = document.createElement('div');
+    d.className = 'k' + (selected===k.id?' on':'');
+    d.dataset.id = k.id;
+    d.innerHTML = '<span>'+k.label+'</span><span class="tag '+(k.group||'miss')+'">'+(k.badge||'')+'</span>';
+    d.onclick = () => inject(k);
+    box.appendChild(d);
   }
+  $('#kinds-count').textContent = list.length + ' / ' + kinds.length;
 }
 
-async function inject(k,evt){
-  const st=document.getElementById('status');
-  if(k.uncovered){st.className='status err';st.textContent='⊘ '+k.label+' — '+k.reason;return;}
+async function inject(k){
+  selected = k.id; renderKinds();
   try{
-    // 直接用 preset index 选择下一局
-    const r=await api('/api/spin',{presetIndex:k.preset});
-    st.className='status ok';
-    st.textContent='✓ '+k.label+' — win='+r.data?.TotalWin+' bal='+r.balance;
-    document.getElementById('bal').textContent=r.balance;
-    if(evt)evt.target.closest('.item')?.classList.add('active');
-  }catch(e){st.className='status err';st.textContent='✗ '+e.message;}
+    const r = await api('/api/result', {
+      method:'POST',
+      headers:{'content-type':'application/json','x-admin-key':$('#adminkey').value||''},
+      body: JSON.stringify({kind:k.id})
+    });
+    if (r.error){ toast('注入失败：'+r.error); return; }
+    toast('✓ 已注入 ' + k.label);
+    log('注入 ' + k.label + ' (' + k.id + ')');
+  }catch(e){ toast('注入异常：'+e.message); }
+}
+
+function buildGrid(){
+  const g = $('#grid'); g.innerHTML='';
+  g.style.gridTemplateColumns = 'repeat(5,1fr)';
+  for (let r=0;r<3;r++) for (let c=0;c<5;c++){
+    const d=document.createElement('div');
+    d.className='cell'+(grid[c][r]!=null?' set':'');
+    d.textContent = grid[c][r]!=null ? grid[c][r] : '';
+    d.onclick=()=>{ const v=Number($('#sym-pick').value); grid[c][r]=v; buildGrid(); };
+    g.appendChild(d);
+  }
+}
+function gridClear(){ grid=[[],[],[],[],[]]; buildGrid(); }
+function gridRandom(){ for(let c=0;c<5;c++)for(let r=0;r<3;r++) grid[c][r]=Math.floor(Math.random()*15); buildGrid(); }
+async function gridApply(){
+  const cols=[]; for(let c=0;c<5;c++){ const col=[]; for(let r=0;r<3;r++) col.push(grid[c][r]??0); cols.push(col); }
+  const r = await api('/api/result', {method:'POST',headers:{'content-type':'application/json','x-admin-key':$('#adminkey').value||''},body:JSON.stringify({grid:cols})});
+  if (r.error){ toast('注入失败：'+r.error); return; }
+  toast('✓ 盘面已注入'); log('按盘面注入 ' + JSON.stringify(cols));
+}
+
+async function specialInject(){
+  const body = {};
+  const sc = $('#sp-scatter').value; if (sc!=='0') body.scatter = Number(sc);
+  const jp = $('#sp-jp').value; if (jp) body.jackpot = jp;
+  const buy = $('#sp-buy').value; if (buy) body.buyBonus = Number(buy);
+  if (!Object.keys(body).length){ toast('未选择特殊玩法'); return; }
+  const r = await api('/api/result', {method:'POST',headers:{'content-type':'application/json','x-admin-key':$('#adminkey').value||''},body:JSON.stringify(body)});
+  if (r.error){ toast('注入失败：'+r.error); return; }
+  toast('✓ 特殊玩法已注入'); log('特殊注入 ' + JSON.stringify(body));
+}
+
+async function playOnce(){
+  const r = await api('/api/result?sid=panel&bet=200');
+  if (r.error){ toast('试转失败：'+r.error); return; }
+  toast('本局赢分 ' + fmt(r.win)); log('试转 win=' + fmt(r.win) + ' bal=' + fmt(r.balance));
 }
 
 async function verifyAll(){
-  const prog=document.getElementById('prog');
-  let pass=0,fail=0,skip=0;
-  for(const k of KINDS){
-    if(k.uncovered){skip++;continue;}
-    try{
-      const r=await api('/api/spin',{presetIndex:k.preset});
-      if(r.code===0)pass++;else fail++;
-    }catch{fail++;}
+  const prog=$('#prog'); let ok=0, bad=0;
+  const todo = kinds.filter(x=>!x.skip);
+  for (const k of todo){
+    const r = await api('/api/result', {method:'POST',headers:{'content-type':'application/json','x-admin-key':$('#adminkey').value||''},body:JSON.stringify({kind:k.id})});
+    if (r.error) bad++; else ok++;
+    prog.textContent = '已完成 ' + (ok+bad) + ' / ' + todo.length;
   }
-  prog.textContent='完成: '+pass+'✓ '+fail+'✗ '+skip+'⊘';
+  prog.textContent = '完成：' + ok + ' ✓  ' + bad + ' ✗';
 }
 
-render();
-api('/api/init',{}).then(r=>{balance=r.data?.WalletInfo?.[0]?.coin||0;document.getElementById('bal').textContent=balance;});
-</script></body></html>
+function log(msg){
+  const d=document.createElement('div'); d.textContent = new Date().toLocaleTimeString() + ' ' + msg;
+  const box=$('#log'); box.prepend(d);
+  while(box.children.length>200) box.lastChild.remove();
+  $('#log-count').textContent = box.children.length + ' 条';
+}
+
+async function poll(){
+  try{
+    const s = await api('/api/session');
+    $('#s-bal').textContent = fmt(s.balance);
+    $('#s-bet').textContent = fmt(s.bet||200);
+    $('#s-spin').textContent = s.spinIdx||0;
+    const rj = await api('/api/rejects');
+    $('#s-rej').textContent = rj.count||0;
+    if ((s.spinIdx||0) > lastLog){ lastLog = s.spinIdx; if (s.lastWin!=null) log('spin #'+s.spinIdx+' win='+fmt(s.lastWin)); }
+  }catch(e){}
+}
+
+async function boot(){
+  const sel = $('#sym-pick');
+  for (const s of SYMS){ const o=document.createElement('option'); o.value=s.id; o.textContent=s.id+' · '+s.name; sel.appendChild(o); }
+  gridRandom();
+  try{
+    const kd = await api('/api/kinds');
+    kinds = kd.kinds || [];
+    renderKinds();
+  }catch(e){ log('加载奖种失败：'+e.message); }
+  $('#search').oninput = renderKinds;
+  document.querySelectorAll('.sec>h2').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('collapsed'));
+  poll(); setInterval(poll, 1000);
+}
+boot();
+</script>
+</body>
+</html>

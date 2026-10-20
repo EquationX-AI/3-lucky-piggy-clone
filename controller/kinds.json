@@ -1,0 +1,12 @@
+[
+  {"id":"miss","label":"空转（不中奖）","group":"miss","badge":"空","preset":0},
+  {"id":"line-win","label":"连线中奖（钞票 ×3 第1线）","group":"small","badge":"小奖","preset":1},
+  {"id":"scatter-3","label":"3 Scatter 触发免费游戏","group":"super","badge":"未覆盖","skip":true},
+  {"id":"jp-mini","label":"奖池 MINI (3,000)","group":"big","badge":"未覆盖","skip":true},
+  {"id":"jp-minor","label":"奖池 MINOR (6,000)","group":"big","badge":"未覆盖","skip":true},
+  {"id":"jp-major","label":"奖池 MAJOR (30,000)","group":"super","badge":"未覆盖","skip":true},
+  {"id":"jp-grand","label":"奖池 GRAND (3,000,000)","group":"super","badge":"未覆盖","skip":true},
+  {"id":"buy-50","label":"购买奖励局 档1 (×50)","group":"respin","badge":"未覆盖","skip":true},
+  {"id":"buy-100","label":"购买奖励局 档2 (×100)","group":"respin","badge":"未覆盖","skip":true},
+  {"id":"buy-200","label":"购买奖励局 档3 (×200)","group":"respin","badge":"未覆盖","skip":true}
+]

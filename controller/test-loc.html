@@ -1,0 +1,17 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>
+<script>
+function L(m){try{var x=new XMLHttpRequest();x.open('POST','/api/log',true);x.setRequestHeader('content-type','application/json');x.send(JSON.stringify({t:Date.now(),level:'log',msg:String(m)}));}catch(e){}}
+(function(){
+  var r={};
+  try{ r.protoReload = JSON.stringify(Object.getOwnPropertyDescriptor(Location.prototype,'reload')||null); }catch(e){r.protoReload='ERR '+e;}
+  try{ r.locReload = JSON.stringify(Object.getOwnPropertyDescriptor(location,'reload')||null); }catch(e){r.locReload='ERR '+e;}
+  try{ r.winLoc = JSON.stringify(Object.getOwnPropertyDescriptor(window,'location')||null); }catch(e){r.winLoc='ERR '+e;}
+  try{
+    var orig = Location.prototype.reload;
+    Location.prototype.reload = function(){ L('reload BLOCKED'); };
+    r.patched = (Location.prototype.reload !== orig);
+  }catch(e){ r.patched='ERR '+e; }
+  L('PROBE '+JSON.stringify(r));
+})();
+</script>
+</body></html>

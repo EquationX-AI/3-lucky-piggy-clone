@@ -34,6 +34,39 @@ let balance = 100000;
 let spinIdx = 0;
 let nextResult = null; // 控奖注入
 const rejects = [];
+const KINDS = JSON.parse(fs.readFileSync(path.join(__dirname, 'controller/kinds.json'), 'utf8'));
+let lastWin = 0;
+
+/** 用 5×3 网格构造一个 SpinAck（无中奖线，仅用于盘面演示） */
+function buildAckFromGrid(cols) {
+  const emptyCol = () => ({ Col: [0,1,2].map(() => ({ Symbol: 21, JPState: 0, JPMult: 0, Number: 0 })) });
+  return {
+    RoundQueue: [{
+      MainPlateSymbol: cols.map(c => ({ Col: c.slice() })),
+      FreePlateSymbol: [emptyCol(), emptyCol(), emptyCol(), emptyCol(), emptyCol()],
+      WinLineInfos: [],
+      MaxFlag: false
+    }],
+    FolderIndex: 0, TotalWin: 0, FreeTotalWin: 0,
+    FreeRemainRound: 0, FreeNowRound: 0,
+    CrackLevels: [0,0,0,0,0], AckType: 0, ShowIndex: ''
+  };
+}
+
+/** 统一的一局结算：扣注 + 派奖 + 余额 */
+function doSpin(bet) {
+  const valid = [200,400,600,1000,2000,4000,6000,10000];
+  if (!valid.includes(bet)) return { error: 'invalid bet', valid };
+  if (balance < bet) return { error: 'insufficient balance', balance };
+  let ack;
+  if (nextResult) { ack = JSON.parse(JSON.stringify(nextResult)); nextResult = null; }
+  else { ack = JSON.parse(JSON.stringify(PRESETS[spinIdx % PRESETS.length])); }
+  const win = Number(ack.TotalWin || 0);
+  balance = balance - bet + win;
+  spinIdx++; lastWin = win;
+  ack.NowMoney = balance;
+  return { ok: true, win, balance, spinIdx, data: ack };
+}
 const PAGE_LOGS = [];
 
 // ---------- 辅助 ----------
@@ -101,7 +134,73 @@ const server = http.createServer(async (req, res) => {
 
   if (p === '/api/session' && req.method === 'GET') {
     res.writeHead(200, { 'content-type': 'application/json' });
-    res.end(JSON.stringify({ balance, spinIdx, nextResult: !!nextResult }));
+    res.end(JSON.stringify({ balance, spinIdx, nextResult: !!nextResult, lastWin, bet: 200 }));
+    return;
+  }
+
+  if (p === '/api/kinds' && req.method === 'GET') {
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ kinds: KINDS, uncovered: KINDS.filter(k => k.skip).map(k => k.id) }));
+    return;
+  }
+
+  // 面板标准端点：POST /api/result {kind|grid|scatter|jackpot|buyBonus} 注入；GET /api/result?sid&bet 跑一局
+  if (p === '/api/result' && req.method === 'POST') {
+    let body = {};
+    try { body = JSON.parse(await readBody(req)); } catch (e) {}
+    const key = req.headers['x-admin-key'] || '';
+    if (process.env.ADMIN_KEY && key !== process.env.ADMIN_KEY) {
+      res.writeHead(403, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ error: 'admin key required' }));
+      return;
+    }
+    if (body.jackpot || body.buyBonus || body.scatter) {
+      rejects.push({ time: Date.now(), reason: 'special not implemented', body });
+      res.writeHead(400, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ error: '特殊玩法尚未实现（缺原厂录制样本）' }));
+      return;
+    }
+    if (body.grid) {
+      const cols = body.grid;
+      if (!Array.isArray(cols) || cols.length !== 5 || cols.some(c => !Array.isArray(c) || c.length !== 3)) {
+        res.writeHead(400, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ error: 'grid 必须是 5 列 × 3 行' }));
+        return;
+      }
+      nextResult = buildAckFromGrid(cols);
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, queued: true, kind: 'grid' }));
+      return;
+    }
+    if (body.kind) {
+      const k = KINDS.find(x => x.id === body.kind);
+      if (!k) {
+        rejects.push({ time: Date.now(), reason: 'unknown kind', kind: body.kind });
+        res.writeHead(400, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ error: 'unknown kind' }));
+        return;
+      }
+      if (k.skip) {
+        res.writeHead(400, { 'content-type': 'application/json' });
+        res.end(JSON.stringify({ error: '该奖项尚未覆盖（缺原厂样本）' }));
+        return;
+      }
+      nextResult = JSON.parse(JSON.stringify(PRESETS[k.preset] || PRESETS[0]));
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, queued: true, kind: k.id }));
+      return;
+    }
+    res.writeHead(400, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ error: '需要 kind 或 grid' }));
+    return;
+  }
+
+  if (p === '/api/result' && req.method === 'GET') {
+    const bet = Number(url.searchParams.get('bet') || 200);
+    const r = doSpin(bet);
+    if (r.error) { res.writeHead(400, { 'content-type': 'application/json' }); res.end(JSON.stringify(r)); return; }
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end(JSON.stringify(r));
     return;
   }
 
@@ -166,39 +265,17 @@ const server = http.createServer(async (req, res) => {
     const body = await readBody(req);
     let parsed = {};
     try { parsed = JSON.parse(body); } catch {}
-    const bet = parsed.bet || 200;
-
-    // G2: 注额校验
-    const validBets = [200,400,600,1000,2000,4000,6000,10000];
-    if (!validBets.includes(bet)) {
-      rejects.push({ time: Date.now(), reason: 'invalid bet', bet });
+    const bet = Number(parsed.bet) || 200;
+    const r = doSpin(bet);
+    if (r.error) {
+      rejects.push({ time: Date.now(), reason: r.error, bet, balance });
       res.writeHead(400, { 'content-type': 'application/json' });
-      res.end(JSON.stringify({ error: 'invalid bet amount', validBets }));
+      res.end(JSON.stringify(r));
       return;
     }
-    // 余额不足
-    if (balance < bet) {
-      rejects.push({ time: Date.now(), reason: 'insufficient balance', balance, bet });
-      res.writeHead(400, { 'content-type': 'application/json' });
-      res.end(JSON.stringify({ error: 'insufficient balance' }));
-      return;
-    }
-
-    // 取结果：控奖注入优先，否则轮播预设
-    let result;
-    if (nextResult) {
-      result = nextResult;
-      nextResult = null;
-    } else {
-      result = PRESETS[spinIdx % PRESETS.length];
-    }
-    const win = result.TotalWin || 0;
-    balance = balance - bet + win;
-    spinIdx++;
-
     res.writeHead(200, { 'content-type': 'application/json' });
-    res.end(JSON.stringify({ code: 0, ackType: 0, data: result, balance }));
-    console.log('  API spin #' + spinIdx + ', bet:', bet, ', win:', win, ', bal:', balance);
+    res.end(JSON.stringify({ code: 0, ackType: 0, data: r.data, balance: r.balance }));
+    console.log('  API spin #' + r.spinIdx + ', bet:', bet, ', win:', r.win, ', bal:', r.balance);
     return;
   }
 

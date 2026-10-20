@@ -549,6 +549,13 @@
   //   _global[41018] === globalThis，其余槽位由外壳自己写。
   if (!w.h2eSW) { w.h2eSW = { 41018: w }; }
   if (!w.R7xpx) { w.R7xpx = { 41018: w }; }
+  // 清洗版 bundle 用 w4mPe["63d7"] 表示 System.register（去混淆别名），补回绑定
+  try {
+    if (!w.w4mPe) { w.w4mPe = w.System; }
+    if (w.System && w.System.register && !w.System['63d7']) {
+      w.System['63d7'] = function () { return w.System.register.apply(w.System, arguments); };
+    }
+  } catch (e) {}
   w.__CTRL_NS_READY__ = true;
 
   log('td400 接线钩子已安装');
