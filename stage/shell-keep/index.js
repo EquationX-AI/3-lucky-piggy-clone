@@ -17,9 +17,9 @@ _globalO[41018] = function () {
       if (typeof wvWP0 === "undefined") {
         throw "";
       }
-      delete d9.wvWP0;
+      void d9.wvWP0;
       C7 = Object.prototype;
-      delete C7.vB4vH;
+      void C7.vB4vH;
     } catch (h$) {
       d9 = window;
     }

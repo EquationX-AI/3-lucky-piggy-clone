@@ -295,10 +295,12 @@ const server = http.createServer(async (req, res) => {
     if (serveFile(fp, res)) return;
   }
   // keep-runtime 产物（保留运行时引导，只还原字符串/常量）
-  if (process.env.SHELLKEEP) {
+  if (process.env.SHELLKEEP && process.env.SHELLKEEP !== 'other') {
     if (p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
       if (serveFile(path.join(__dirname, 'stage/shell-keep/bundle.js'), res)) return;
     }
+  }
+  if (process.env.SHELLKEEP && process.env.SHELLKEEP !== 'bundle') {
     if (p === '/astarte2/3.6/web-mobile/assets/other/index.ad23f.js') {
       if (serveFile(path.join(__dirname, 'stage/shell-keep/index.js'), res)) return;
     }

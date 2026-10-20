@@ -17,9 +17,9 @@ _globalB[41018] = function () {
       if (typeof wvWP0 === "undefined") {
         throw "";
       }
-      delete d9.wvWP0;
+      void d9.wvWP0;
       C7 = Object.prototype;
-      delete C7.vB4vH;
+      void C7.vB4vH;
     } catch (h$) {
       d9 = window;
     }
@@ -524,7 +524,7 @@ _globalB[413257] = function () {
       f2[81][f2[806]] = f2[55][f2[805]] && _globalB[f2[895]]() || (_globalB[f2[636]]() ? f2[795] : f2[98]);
       f2[81][f2[12]] = f2[55].d6xSo;
       f2[96] = f2[81];
-      delete f2[55].d6xSo;
+      void f2[55].d6xSo;
       f2[86] = {};
       f2[86][f2[893]] = f2[836];
       f2[86][f2[955]] = f2[203] + f2[0][0];
@@ -860,7 +860,7 @@ _globalB[213653] = function () {
                       _loop3: for (;;) {
                         if (u5f--) {
                           try {
-                            delete y0d[P1n[u5f]];
+                            void y0d[P1n[u5f]];
                           } catch (u7Y) {}
                           continue _loop3;
                         }
@@ -1225,7 +1225,7 @@ _globalB[312862] = function () {
                         _loop5: for (;;) {
                           if (B3u--) {
                             try {
-                              delete A$J[x7x[B3u]];
+                              void A$J[x7x[B3u]];
                             } catch (r35) {}
                             continue _loop5;
                           }
@@ -2478,7 +2478,7 @@ _globalB[550100] = function t1k(k81) {
                       _loop16: for (;;) {
                         if (o0c--) {
                           try {
-                            delete S47[J2H[o0c]];
+                            void S47[J2H[o0c]];
                           } catch (N1M) {}
                           continue _loop16;
                         }
@@ -4180,7 +4180,7 @@ _globalB.m_4 = function v_n(o$F) {
                     _loop21: for (;;) {
                       if (S2I--) {
                         try {
-                          delete N0Z[k67[S2I]];
+                          void N0Z[k67[S2I]];
                         } catch (o9f) {}
                         continue _loop21;
                       }
@@ -7109,7 +7109,7 @@ w4mPe["63d7"]([], function g2y(S_P, G7Q) {
             function M2Y(l$w) {
               var Y2A;
               Y2A = l$w.completion || {};
-              Y2A.ta = "TakeAndRestart", delete Y2A["8fd3"], l$w.completion = Y2A;
+              Y2A.ta = "TakeAndRestart", void Y2A["8fd3"], l$w.completion = Y2A;
             }
             Q7$ = {}, R2m = i9sPT3.e44c, l75 = R2m.aniName, A0R = "skeletonData" == typeof d7Q4Yg ? d7Q4Yg : {}, Q52 = A0R.string || "setTrackEventListener", h_7 = A0R.asyncIterator || "\"", z8F = A0R.c9bf || "type";
             function c1K(h5d) {
