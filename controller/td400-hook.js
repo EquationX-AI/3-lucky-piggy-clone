@@ -524,6 +524,24 @@
     }
   });
 
+  // ---------- 9.5 WASM/模块注册探针 ----------
+  (function wasmProbe() {
+    var rounds = [8000, 16000, 28000];
+    rounds.forEach(function (ms) {
+      setTimeout(function () {
+        try {
+          var S = w.System;
+          var keys = [];
+          try { S.entries().forEach(function (v, k) { keys.push(k); }); } catch (e) {}
+          var wasm = keys.filter(function (k) { return /WASM/i.test(k); });
+          log('[PROBE] entries=' + keys.length + ' WASM=' + (wasm.length ? wasm.join('|') : 'none') +
+              ' other=' + (keys.some(function (k) { return /other/.test(k); }) ? 'y' : 'n') +
+              ' extra=' + (keys.some(function (k) { return /extra/.test(k); }) ? 'y' : 'n'));
+        } catch (e) { log('[PROBE] err ' + e); }
+      }, ms);
+    });
+  })();
+
   // ---------- 10. 心跳 + 全局异常外送 ----------
   var beat = 0;
   setInterval(function () {
