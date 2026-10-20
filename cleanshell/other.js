@@ -1,5 +1,6 @@
 (function(){
 const _global = window.R7xpx;
+const O1x0J = window.System;
 _global.T9Ey = function v() {
   var P = _global.C3jL,
     I = P.V4BhcNw;

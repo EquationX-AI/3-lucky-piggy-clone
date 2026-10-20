@@ -68,6 +68,7 @@ function doSpin(bet) {
   return { ok: true, win, balance, spinIdx, data: ack };
 }
 const PAGE_LOGS = [];
+let pageLoads = 0, astarteReqs = 0;
 
 // ---------- 辅助 ----------
 function serveFile(filePath, res) {
@@ -320,6 +321,14 @@ const server = http.createServer(async (req, res) => {
     const rel = p.slice('/controller/'.length);
     const filePath = path.join(__dirname, 'controller', rel);
     if (serveFile(filePath, res)) return;
+  }
+
+  if (p.startsWith('/astarte2/')) astarteReqs++;
+  if (p === '/tlp/' || p === '/tlp') pageLoads++;
+  if (p === '/api/stats' && req.method === 'GET') {
+    res.writeHead(200, { 'content-type': 'application/json' });
+    res.end(JSON.stringify({ pageLoads, astarteReqs }));
+    return;
   }
 
   // ---------- 游戏入口（serve 时注入钩子，镜像本体不改） ----------

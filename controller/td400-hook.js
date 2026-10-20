@@ -48,6 +48,20 @@
   w.__CTRL_LOG__ = log;
   w.__CTRL_ERR__ = err;
 
+  // 引擎的 VERSION 常量：Cocos 3.x 里 cc.VERSION 是 undefined，cc.ENGINE_VERSION 才有值。
+  // 游戏里多处 `VERSION.match(...)` 会因此抛错，先兜底注入。
+  try {
+    if (typeof w.VERSION === 'undefined') w.VERSION = '3.6.2';
+  } catch (e) {}
+  // cc 就绪后再对齐一次（以引擎自报为准）
+  (function syncVer() {
+    var n = 0;
+    var t = setInterval(function () {
+      if (++n > 400) { clearInterval(t); return; }
+      if (w.cc && w.cc.ENGINE_VERSION) { w.VERSION = w.cc.ENGINE_VERSION; clearInterval(t); }
+    }, 25);
+  })();
+
   // ---------- 1. 预设 Astarte 命名空间 ----------
   w.Astarte = w.Astarte || {};
   var A = w.Astarte;

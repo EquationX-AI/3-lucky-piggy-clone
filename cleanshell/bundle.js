@@ -1,5 +1,6 @@
 (function(){
 const _global = window.h2eSW;
+const w4mPe = window.System;
 w4mPe["63d7"]([], function g2y(S_P, G7Q) {
   var o6f, n0J;
   o6f = _global;
