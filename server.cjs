@@ -294,6 +294,15 @@ const server = http.createServer(async (req, res) => {
     const fp = path.join(__dirname, 'patched', process.env.CLEANMAIN ? 'main.clean.js' : 'main.d2cb2.js');
     if (serveFile(fp, res)) return;
   }
+  // F4：空注册 other/extra，保留 bundle
+  if (process.env.F4STUB) {
+    if (p === '/astarte2/3.6/web-mobile/assets/other/index.ad23f.js') {
+      if (serveFile(path.join(__dirname, 'stage/f4/other.stub.js'), res)) return;
+    }
+    if (p === '/astarte2/3.6/web-mobile/assets/extra/index.09c5f.js') {
+      if (serveFile(path.join(__dirname, 'stage/f4/extra.stub.js'), res)) return;
+    }
+  }
   // keep-runtime 产物（保留运行时引导，只还原字符串/常量）
   if (process.env.SHELLKEEP && process.env.SHELLKEEP !== 'other') {
     if (p === '/astarte2/3.6/web-mobile/src/chunks/bundle.fb6e5.js') {
@@ -363,6 +372,7 @@ const server = http.createServer(async (req, res) => {
       // 在 System.import 之前注入：钩子必须先于游戏代码执行
       const inject = [
         '<script src="/controller/td400-hook.js" charset="utf-8"></script>',
+        '<script src="/controller/f4-boot.js" charset="utf-8"></script>',
         '<script src="/controller/Controller.js" charset="utf-8"></script>',
         '<script src="/controller/LocalController.js" charset="utf-8"></script>'
       ].join('\n');
